@@ -1,0 +1,76 @@
+/* =========================================================
+   Rendimiento en móvil: lo que está lejos no se maqueta hasta acercarse
+   ---------------------------------------------------------
+   En un teléfono la portada mide unos 15 000 px y el primer pintado esperaba a maquetarla
+   entera. Con `content-visibility: auto` el navegador solo maqueta y pinta lo que está cerca de
+   la pantalla; el resto ocupa la altura de reserva (`contain-intrinsic-size`). `auto` hace que,
+   una vez vista, cada sección recuerde su altura real, así la barra de scroll deja de ajustarse.
+   Las reservas son alturas de la CAJA DE CONTENIDO medidas a 390 px (sin el padding de la
+   sección, que se suma por encima) y solo de alto: con el atajo de un valor también se reservaba
+   ancho, y en la guía una tarjeta sin pintar ensanchaba la página a 690 px.
+
+   Solo hasta 1023 px: en escritorio la maquetación no era el cuello de botella y allí viven el
+   parallax y el scroll suave, que miden posiciones. La primera sección de cada página nunca
+   entra: es la que se ve al cargar.
+   ========================================================= */
+@media (max-width: 1023px) {
+  main section ~ section,
+  .footer {
+    content-visibility: auto;
+    contain-intrinsic-height: auto 700px;
+  }
+
+  /* Portada */
+  .cats {
+    contain-intrinsic-height: auto 795px;
+  }
+  .destacados {
+    contain-intrinsic-height: auto 4358px;
+  }
+  .explorar {
+    contain-intrinsic-height: auto 1331px;
+  }
+  .lab {
+    contain-intrinsic-height: auto 1061px;
+  }
+  .completa {
+    contain-intrinsic-height: auto 935px;
+  }
+  .guide {
+    contain-intrinsic-height: auto 1240px;
+  }
+  .promesas {
+    contain-intrinsic-height: auto 758px;
+  }
+  .faq {
+    contain-intrinsic-height: auto 665px;
+  }
+  .final {
+    contain-intrinsic-height: auto 704px;
+  }
+  .footer {
+    contain-intrinsic-height: auto 1141px;
+  }
+
+  /* Ficha de producto: lo que va debajo de la compra */
+  .pficha {
+    contain-intrinsic-height: auto 681px;
+  }
+  .labres {
+    contain-intrinsic-height: auto 687px;
+  }
+  .pcomp {
+    contain-intrinsic-height: auto 396px;
+  }
+  .prel {
+    contain-intrinsic-height: auto 2087px;
+  }
+
+  /* Catálogo: en una columna solo la primera tarjeta está a la vista; desde la tercera, a la
+     espera. El margen de recorte deja ver entero el anillo de foco de los botones del pie. */
+  .tienda__grid > li:nth-child(n + 3) {
+    content-visibility: auto;
+    contain-intrinsic-height: auto 670px;
+    overflow-clip-margin: 8px;
+  }
+}

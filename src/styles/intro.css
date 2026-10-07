@@ -1,0 +1,174 @@
+/* =========================================================
+   Intro en CSS: cortina de entrada y secuencia del hero
+   ---------------------------------------------------------
+   Antes las dos las movía GSAP, así que no empezaban hasta que React terminaba de hidratar la
+   página. En un móvil modesto eso eran casi dos segundos con la foto del hero tapada (era el LCP).
+   En CSS arrancan con el primer pintado. Mismos tiempos y curvas que `src/lib/motion.ts`:
+
+     expo.out      → cubic-bezier(0.16, 1, 0.3, 1)      (entradas de contenido)
+     power3.inOut  → cubic-bezier(0.65, 0, 0.35, 1)     (máscara de foto)
+     power2.out    → cubic-bezier(0.33, 1, 0.68, 1)     (asentado de foto)
+     power4.inOut  → cubic-bezier(0.76, 0, 0.24, 1)     (cortina)
+
+   `animation-fill-mode: backwards`: el estado inicial rige durante la espera y, al terminar, la
+   animación deja de aplicar. Así no quedan `clip-path` ni `transform` fijados que compitan con el
+   hover de los botones o con el parallax.
+
+   Solo con `html.motion` (sin «reducir movimiento»). `html.intro` lo pone el script de arranque
+   del layout la primera vez por sesión: ese es el único caso en que se ve la cortina.
+   ========================================================= */
+
+:root {
+  --e-intro-reveal: cubic-bezier(0.16, 1, 0.3, 1);
+  --e-intro-mask: cubic-bezier(0.65, 0, 0.35, 1);
+  --e-intro-settle: cubic-bezier(0.33, 1, 0.68, 1);
+}
+/* La secuencia del hero empieza cuando la cortina empieza a subir. El desfase se declara solo en
+   lo que lo usa, no en :root: al retirar html.intro (Preloader, a los 3,2 s) cambiaba una variable
+   heredada por todo el documento y se recalculaba el estilo de la página entera. */
+html.intro :is(.intro-media, .intro-split, .intro-reveal, .nav__enter) {
+  --intro-offset: 0.58s;
+}
+
+/* ---------- Cortina ---------- */
+html:not(.intro) .preloader {
+  display: none;
+}
+html.intro .preloader {
+  animation: intro-cortina 0.62s cubic-bezier(0.76, 0, 0.24, 1) 0.58s forwards;
+}
+html.intro .preloader__mark {
+  animation: intro-marca 0.62s var(--e-intro-reveal) backwards;
+}
+html.intro .preloader__rule {
+  animation: intro-regla 0.5s cubic-bezier(0.45, 0, 0.55, 1) 0.08s backwards;
+}
+html.intro .preloader__sub {
+  animation: intro-fundido 0.3s var(--e-intro-settle) 0.24s backwards;
+}
+html.intro .preloader__inner {
+  animation: intro-salida 0.34s cubic-bezier(0.32, 0, 0.67, 0) 0.5s forwards;
+}
+@keyframes intro-cortina {
+  to {
+    clip-path: inset(0% 0% 100% 0%);
+    visibility: hidden;
+  }
+}
+@keyframes intro-marca {
+  from {
+    transform: translateY(115%);
+  }
+}
+@keyframes intro-regla {
+  from {
+    transform: scaleX(0);
+  }
+}
+@keyframes intro-fundido {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes intro-salida {
+  to {
+    transform: translateY(-16%);
+    opacity: 0;
+  }
+}
+
+/* ---------- Hero ----------
+   Cada componente con `trigger="intro"` escribe su retardo en `--d` (y `--st` para el
+   escalonado, `--i` para el orden de cada línea del titular). */
+
+/* Fotografía: máscara que se abre de abajo arriba + asentado del zoom. */
+html.motion .intro-media {
+  animation: intro-mascara 0.85s var(--e-intro-mask) calc(var(--intro-offset, 0s) + var(--d, 0s)) backwards;
+}
+html.motion .intro-media img {
+  animation: intro-asentado 1.15s var(--e-intro-settle) calc(var(--intro-offset, 0s) + var(--d, 0s)) backwards;
+}
+@keyframes intro-mascara {
+  from {
+    clip-path: inset(0% 0% 100% 0%);
+  }
+  to {
+    clip-path: inset(0% 0% 0% 0%);
+  }
+}
+@keyframes intro-asentado {
+  from {
+    transform: scale(1.05);
+  }
+}
+
+/* Titular: cada línea sube dentro de su máscara. */
+html.motion .intro-split .split-line__inner {
+  animation: intro-linea 0.75s var(--e-intro-reveal)
+    calc(var(--intro-offset, 0s) + var(--d, 0s) + var(--i, 0) * var(--st, 0.06s)) backwards;
+}
+@keyframes intro-linea {
+  from {
+    transform: translateY(108%);
+  }
+}
+
+/* Bloques de texto y botones: fundido con un recorrido corto. */
+html.motion .intro-reveal:not(.intro-reveal--stagger),
+html.motion .intro-reveal--stagger > * {
+  animation: intro-sube 0.6s var(--e-intro-reveal) calc(var(--intro-offset, 0s) + var(--d, 0s)) backwards;
+}
+html.motion .intro-reveal--stagger > :nth-child(2) {
+  animation-delay: calc(var(--intro-offset, 0s) + var(--d, 0s) + var(--st, 0s));
+}
+html.motion .intro-reveal--stagger > :nth-child(3) {
+  animation-delay: calc(var(--intro-offset, 0s) + var(--d, 0s) + var(--st, 0s) * 2);
+}
+html.motion .intro-reveal--stagger > :nth-child(4) {
+  animation-delay: calc(var(--intro-offset, 0s) + var(--d, 0s) + var(--st, 0s) * 3);
+}
+html.motion .intro-reveal--stagger > :nth-child(5) {
+  animation-delay: calc(var(--intro-offset, 0s) + var(--d, 0s) + var(--st, 0s) * 4);
+}
+html.motion .intro-reveal--fundido:not(.intro-reveal--stagger),
+html.motion .intro-reveal--fundido > * {
+  animation-name: intro-fundido;
+}
+@keyframes intro-sube {
+  from {
+    opacity: 0;
+    transform: translateY(var(--y, 12px));
+  }
+}
+
+/* ---------- Cabecera ----------
+   Los grupos de la barra bajan 16 px y aparecen, escalonados 0,06 s, a la vez que la cortina
+   empieza a subir (antes con GSAP al recibir `almara:ready`, que marca el mismo instante).
+   `translate` y no `transform`: no pisa la posición propia de cada grupo. */
+html.motion .nav__enter {
+  animation: intro-baja 1s var(--e-intro-reveal) calc(var(--intro-offset, 0s) + 0.15s + var(--i-nav, 0) * 0.06s) backwards;
+}
+.nav__links > .nav__enter:nth-child(2) {
+  --i-nav: 1;
+}
+.nav__links > .nav__enter:nth-child(3) {
+  --i-nav: 2;
+}
+.nav__links > .nav__enter:nth-child(4) {
+  --i-nav: 3;
+}
+.nav__links > .nav__enter:nth-child(5) {
+  --i-nav: 4;
+}
+.nav__logo.nav__enter {
+  --i-nav: 5;
+}
+.nav__acciones.nav__enter {
+  --i-nav: 6;
+}
+@keyframes intro-baja {
+  from {
+    opacity: 0;
+    translate: 0 -16px;
+  }
+}

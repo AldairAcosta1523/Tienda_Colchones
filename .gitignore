@@ -1,0 +1,17 @@
+node_modules
+.next
+out
+*.tsbuildinfo
+next-env.d.ts
+.DS_Store
+.env
+.env.local
+.env.production
+shots
+shots-*
+
+
+
+# Scripts temporales de QA (agentes y pruebas puntuales)
+scripts/_*.mjs
+scripts/_*.sh

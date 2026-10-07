@@ -1,0 +1,68 @@
+/* =========================================================
+   Transiciones entre páginas (View Transitions API vía React)
+   ---------------------------------------------------------
+   - Página: la que se va se desvanece rápido; la nueva entra con un fundido y 8 px de subida.
+     Cortas a propósito: acompañan la navegación, no la retrasan.
+   - Cabecera: fija durante la transición. Es la referencia que dice «cambió el contenido,
+     no la web entera».
+   - Foto de producto: la de la tarjeta viaja hasta la foto principal de la ficha (`.producto`).
+   ========================================================= */
+
+/* Los clics durante la transición llegan a la página nueva en vez de perderse. */
+::view-transition {
+  pointer-events: none;
+}
+
+::view-transition-old(.pagina-sale) {
+  animation: vt-sale 160ms cubic-bezier(0.4, 0, 1, 1) both;
+}
+::view-transition-new(.pagina-entra) {
+  animation: vt-entra 280ms cubic-bezier(0.16, 1, 0.3, 1) 60ms both;
+}
+@keyframes vt-sale {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes vt-entra {
+  from {
+    opacity: 0;
+    translate: 0 8px;
+  }
+}
+
+/* Cabecera anclada: ni se desvanece ni se mueve. */
+::view-transition-group(cabecera) {
+  animation: none;
+  z-index: 100;
+}
+::view-transition-old(cabecera) {
+  display: none;
+}
+::view-transition-new(cabecera) {
+  animation: none;
+}
+
+/* Tarjeta → ficha: la foto viaja; a medio camino un desenfoque leve disimula el reescalado. */
+::view-transition-group(.producto) {
+  animation-duration: 420ms;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+  z-index: 50;
+}
+::view-transition-image-pair(.producto) {
+  animation-name: vt-desenfoque;
+}
+@keyframes vt-desenfoque {
+  35% {
+    filter: blur(2px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}

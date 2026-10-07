@@ -1,0 +1,120 @@
+/* =========================================================
+   Entradas al hacer scroll (Reveal, SplitLines, MediaReveal, Rule)
+   ---------------------------------------------------------
+   Antes las movía GSAP con un useGSAP por componente. Ahora el estado inicial y la animación son
+   CSS, con las mismas curvas, duraciones y escalonados que `src/lib/motion.ts` (las curvas son las
+   de intro.css), y un solo revelador (`src/lib/revela.ts`) pone `data-visto` cuando cada bloque
+   cruza su línea de disparo.
+
+   Todo cuelga de `html.revela`, que pone ese revelador antes del primer pintado y solo si hay
+   movimiento: sin JavaScript o con «reducir movimiento» nada se oculta.
+
+   Se animan `translate` y `scale`, no `transform`: así no pisan la transformación propia del
+   elemento (el pie de foto girado, el zoom de una foto al pasar el cursor).
+   ========================================================= */
+
+/* ---------- Bloques: fundido con un recorrido corto (DUR.content, EASE.reveal) ---------- */
+html.revela .revela:not(.revela--stagger):not([data-visto]),
+html.revela .revela--stagger:not([data-visto]) > * {
+  opacity: 0;
+  translate: 0 var(--y, 12px);
+}
+html.revela .revela[data-visto]:not(.revela--stagger) {
+  animation: revela-sube 0.6s var(--e-intro-reveal) var(--d, 0s) backwards;
+}
+html.revela .revela--stagger[data-visto] > * {
+  animation: revela-sube 0.6s var(--e-intro-reveal) calc(var(--d, 0s) + var(--st, 0s) * var(--revela-n, 0)) backwards;
+}
+/* Escalonado entre hermanos: cada hijo espera `--st` más que el anterior (hasta el duodécimo). */
+.revela--stagger > :nth-child(2) {
+  --revela-n: 1;
+}
+.revela--stagger > :nth-child(3) {
+  --revela-n: 2;
+}
+.revela--stagger > :nth-child(4) {
+  --revela-n: 3;
+}
+.revela--stagger > :nth-child(5) {
+  --revela-n: 4;
+}
+.revela--stagger > :nth-child(6) {
+  --revela-n: 5;
+}
+.revela--stagger > :nth-child(7) {
+  --revela-n: 6;
+}
+.revela--stagger > :nth-child(8) {
+  --revela-n: 7;
+}
+.revela--stagger > :nth-child(9) {
+  --revela-n: 8;
+}
+.revela--stagger > :nth-child(10) {
+  --revela-n: 9;
+}
+.revela--stagger > :nth-child(11) {
+  --revela-n: 10;
+}
+.revela--stagger > :nth-child(n + 12) {
+  --revela-n: 11;
+}
+@keyframes revela-sube {
+  from {
+    opacity: 0;
+    translate: 0 var(--y, 12px);
+  }
+}
+
+/* ---------- Titulares: cada línea sube dentro de su máscara (DUR.content + 0,15 s) ---------- */
+html.revela .revela-lineas:not([data-visto]) .split-line__inner {
+  translate: 0 108%;
+}
+html.revela .revela-lineas[data-visto] .split-line__inner {
+  animation: revela-linea 0.75s var(--e-intro-reveal) calc(var(--d, 0s) + var(--i, 0) * var(--st, 0.06s)) backwards;
+}
+@keyframes revela-linea {
+  from {
+    translate: 0 108%;
+  }
+}
+
+/* ---------- Fotografía: máscara de abajo arriba (DUR.mask, EASE.mask) + asentado (DUR.settle) ---------- */
+html.revela .revela-media:not([data-visto]) {
+  clip-path: inset(0% 0% 100% 0%);
+}
+html.revela .revela-media:not([data-visto]) img {
+  scale: 1.05;
+}
+html.revela .revela-media[data-visto] {
+  animation: revela-mascara 0.85s var(--e-intro-mask) var(--d, 0s) backwards;
+}
+html.revela .revela-media[data-visto] img {
+  animation: revela-asentado 1.15s var(--e-intro-settle) var(--d, 0s) backwards;
+}
+@keyframes revela-mascara {
+  from {
+    clip-path: inset(0% 0% 100% 0%);
+  }
+  to {
+    clip-path: inset(0% 0% 0% 0%);
+  }
+}
+@keyframes revela-asentado {
+  from {
+    scale: 1.05;
+  }
+}
+
+/* ---------- Línea divisoria que se dibuja (DUR.rule) ---------- */
+html.revela .revela-regla:not([data-visto]) {
+  scale: 0 1;
+}
+html.revela .revela-regla[data-visto] {
+  animation: revela-regla 0.7s var(--e-intro-reveal) var(--d, 0s) backwards;
+}
+@keyframes revela-regla {
+  from {
+    scale: 0 1;
+  }
+}

@@ -1,0 +1,84 @@
+:root {
+  /* ---------- Color ----------
+     Lino y arena como fondos, verde bosque como color de marca (botones, superficies oscuras)
+     y arcilla como único acento cálido. La arcilla se usa poco: enlaces con flecha, marcadores
+     y estados activos. Nunca como fondo de texto blanco pequeño (3.9:1). */
+  --bg: #f5f2ec; /* lino */
+  --bg-2: #eae4d8; /* arena */
+  --surface: #fcfaf6; /* blanco cálido */
+  --ink: #1e2823; /* verde casi negro · títulos */
+  --ink-2: #3f4640; /* texto */
+  --ink-3: #5c645c; /* texto terciario (AA sobre lino y arena) */
+  --line: #d9d0c2; /* piedra */
+  --line-strong: rgba(30, 40, 35, 0.24);
+
+  --brand: #283a32; /* verde bosque */
+  --accent: #b66f57; /* arcilla */
+  --accent-deep: #8f4e39; /* arcilla para texto pequeño sobre claro (AA) */
+  --accent-soft: rgba(182, 111, 87, 0.12);
+  --accent-on-dark: #d9a48c;
+  --sage: #8d9a80;
+  --sage-deep: #56624e;
+
+  /* Tintes de la colección: cada colchón tiene su propia banda. */
+  --tint-esencial: #eae4d8;
+  --tint-natura: #dfe2d5;
+  --tint-signature: #e9dbce;
+
+  /* Superficie oscura: bosque profundo, no negro */
+  --dark: #1f2d27;
+  --dark-2: #283a32;
+  --on-dark: #f3efe7;
+  --on-dark-2: rgba(243, 239, 231, 0.74);
+  --on-dark-3: rgba(243, 239, 231, 0.6);
+  --line-dark: rgba(243, 239, 231, 0.16);
+
+  /* ---------- Tipografía ----------
+     Newsreader (serif editorial con eje óptico) para titulares y momentos de marca;
+     Onest para todo lo funcional: navegación, precios, botones, texto corrido. */
+  --font-sans: "Onest", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Newsreader", "Iowan Old Style", Georgia, "Times New Roman", serif;
+
+  --fs-mega: clamp(3rem, min(8.6vw, 15vh), 8.75rem);
+  --fs-display: clamp(2.7rem, min(6.6vw, 11vh), 6.25rem);
+  --fs-h2: clamp(2.1rem, min(4.5vw, 8vh), 4.1rem);
+  --fs-h3: clamp(1.3rem, 1.8vw, 1.6rem);
+  --fs-lead: clamp(1.05rem, 1.25vw, 1.2rem);
+  --fs-body: 1rem;
+  --fs-small: 0.92rem;
+  --fs-label: 0.72rem;
+
+  /* Etalonaje común: las fotos vienen de autores distintos; un mismo velo cálido las hermana. */
+  /* Calidez sutil: con más sepia y menos saturación la foto se veía apagada y blanda. */
+  --photo-grade: sepia(0.05) saturate(0.95) contrast(1.04);
+
+  /* ---------- Layout ---------- */
+  --gutter: clamp(20px, 4.4vw, 72px);
+  --container: 1520px;
+  --measure: 60ch;
+  --section-y: clamp(88px, 11vw, 176px);
+  --nav-h: 72px;
+  /* Esquinas casi vivas: el lenguaje es editorial, no de aplicación. */
+  --radius: 2px;
+  --radius-lg: 3px;
+  --radius-xl: 4px;
+  --radius-pill: 2px;
+
+  /* ---------- Motion ----------
+     Micro 160–260 ms · contenido 300–500 ms · revelados editoriales 500–800 ms. */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --e-ui: cubic-bezier(0.22, 1, 0.36, 1);
+  --e-mask: cubic-bezier(0.65, 0, 0.35, 1);
+  --t-micro: 220ms;
+  --t-hover: 220ms;
+  --t-button: 360ms;
+  --t-content: 420ms;
+  --t-reveal: 700ms;
+  --t-large: 1000ms;
+  /* Hover de fotografía: el mismo acercamiento lento en todas las fotos que son enlace
+     (regla única en components.css). Con movimiento reducido vale 1 (base.css). */
+  --foto-zoom: 1.04;
+  --t-foto: 900ms;
+}

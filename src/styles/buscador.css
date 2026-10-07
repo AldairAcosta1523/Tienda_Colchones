@@ -1,0 +1,418 @@
+/* =========================================================
+   Buscador predictivo: banda de la cabecera (escritorio) y menú móvil.
+   Mismo sistema que el megamenú: lino y arena de fondo, reglas de piedra, nombres en
+   Newsreader y lo funcional en Onest; la arcilla solo marca lo que coincide y la fila activa.
+   Va el último en globals.css: tiene que ganar a las reglas `[data-slot="input"]` de
+   shadcn-almara.css.
+   ========================================================= */
+
+.sug[hidden] {
+  display: none !important;
+}
+
+/* La «x» nativa de type=search sale azul y fuera del sistema; la sustituye .sug__borrar. */
+.buscador input[type="search"]::-webkit-search-cancel-button,
+.buscador input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}
+
+/* Hueco reservado aunque no haya texto: al escribir la primera letra nada se desplaza. */
+.sug__borrar {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius);
+  color: var(--ink-3);
+  transition: background-color var(--t-hover) var(--e-ui), color var(--t-hover) var(--e-ui);
+}
+.sug__borrar[data-vacio] {
+  visibility: hidden;
+}
+.sug__borrar:hover,
+.sug__borrar:focus-visible {
+  background: var(--bg-2);
+  color: var(--ink);
+}
+
+/* Arcilla de texto (AA sobre lino y blanco cálido), sin fondo amarillo de navegador. */
+mark.sug__marca {
+  background: none;
+  color: var(--accent-deep);
+}
+
+@keyframes sug-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+/* ---------------------------------------------------------
+   CABECERA (escritorio)
+   --------------------------------------------------------- */
+/* La banda nunca pasa del borde inferior de la ventana: lo que sobra se desplaza dentro del panel.
+   Solo desde 1024 px: por debajo shop.css la oculta y este archivo, que va después, no debe
+   devolverla. */
+@media (min-width: 1024px) {
+  .nav__buscador {
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100dvh - var(--nav-h));
+  }
+}
+.nav__buscador .buscador {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.nav__buscador .buscador > form {
+  flex: none;
+}
+/* El campo vuelve a ser titular pequeño: con 1,05 rem quedaba perdido junto al botón. */
+.nav__buscador .buscador [data-slot="input"] {
+  font-size: clamp(1.3rem, 1.75vw, 1.6rem);
+  line-height: 1.3;
+}
+.nav__buscador .buscador [data-slot="input"]::placeholder {
+  color: var(--ink-3);
+}
+
+.sug--cabecera {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--bg);
+  border-top: 1px solid var(--line);
+  animation: sug-in 220ms var(--e-ui);
+}
+.nav__buscador:has(.sug:not([hidden])) {
+  border-bottom-color: var(--line-strong);
+  box-shadow: 0 28px 48px -36px rgba(30, 40, 35, 0.35);
+}
+
+/* Izquierda, los atajos (categoría, colección, medida…); derecha, los productos y «Ver todos».
+   Sin atajos, los productos pasan a la izquierda en vez de dejar una columna vacía. */
+.sug__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 2.2fr);
+  gap: clamp(24px, 4vw, 72px);
+  padding-block: clamp(16px, 2vw, 24px) clamp(24px, 3vw, 40px);
+}
+.sug__grid--sin-atajos {
+  grid-template-columns: minmax(0, 2.2fr) minmax(0, 0.8fr);
+}
+.sug__grid--simple {
+  grid-template-columns: minmax(0, 1fr);
+}
+.sug__vacio + .sug__grid {
+  padding-top: 14px;
+}
+.sug__titulo {
+  color: var(--ink-3);
+  margin-bottom: 10px;
+}
+/* Dos columnas que se leen hacia abajo: la flecha abajo baja, como el ojo. */
+.sug__productos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-flow: column;
+  grid-template-rows: repeat(var(--filas, 3), auto);
+  column-gap: clamp(20px, 2.4vw, 40px);
+}
+@media (max-width: 1179px) {
+  .sug__productos {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    grid-auto-flow: row;
+  }
+}
+
+/* Filas: la misma regla de piedra y el mismo desplazamiento de 10 px que el megamenú. */
+.sug__opcion {
+  display: grid;
+  align-items: center;
+  border-top: 1px solid var(--line);
+  color: var(--ink);
+  transition: padding 320ms var(--e-ui), background-color 220ms var(--e-ui), box-shadow 220ms var(--e-ui);
+}
+.sug__opcion--producto {
+  grid-template-columns: 56px minmax(0, 1fr) auto;
+  gap: 16px;
+  padding: 12px 0;
+}
+.sug__thumb {
+  position: relative;
+  width: 56px;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--bg-2);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+.sug__img {
+  object-fit: cover;
+  filter: var(--photo-grade);
+  /* Mismos tokens que el hover de fotografía (components.css): la opción activa se acerca igual. */
+  transition: transform var(--t-foto) var(--e-ui);
+}
+.sug__texto {
+  display: grid;
+  min-width: 0;
+}
+.sug__nombre,
+.sug__meta {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.sug__nombre {
+  font-family: var(--font-serif);
+  font-weight: 350;
+  font-size: 1.2rem;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+}
+.sug__meta {
+  margin-top: 3px;
+  font-size: 0.82rem;
+  line-height: 1.35;
+  color: var(--ink-3);
+}
+/* En la banda de escritorio la línea de contexto cabe en dos líneas: cortarla escondía la
+   firmeza, que suele ser justo lo que explica por qué sale el producto. */
+.sug--cabecera .sug__meta {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  white-space: normal;
+  text-wrap: pretty;
+}
+.sug__precio {
+  display: grid;
+  justify-items: end;
+  min-width: 9ch;
+  font-size: 0.88rem;
+  line-height: 1.3;
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums lining-nums;
+  white-space: nowrap;
+}
+.sug__desde {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--ink-3);
+}
+
+.sug__opcion--atajo {
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  padding: 12px 0;
+  min-height: 48px;
+}
+.sug__opcion--atajo .sug__nombre {
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+}
+.sug__flecha {
+  color: var(--accent-deep);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 220ms var(--e-ui), transform 320ms var(--e-ui);
+}
+
+/* «Ver los N resultados» queda pegado al pie del panel aunque la lista se desplace. */
+.sug--cabecera .sug__opcion--todos {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  background: var(--bg);
+}
+.sug__opcion--todos {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 0;
+  border-top: 1px solid var(--line-strong);
+  font: 500 0.9rem/1.4 var(--font-sans);
+}
+
+.sug__frecuentes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.sug__opcion--chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 8px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+  line-height: 1.2;
+  color: var(--ink-2);
+  transition: border-color 220ms var(--e-ui), background-color 220ms var(--e-ui), color 220ms var(--e-ui);
+}
+
+/* Activa (flechas o cursor): fondo blanco cálido, filete de arcilla y la foto se acerca, el mismo
+   gesto que la tarjeta de la tienda. El margen derecho evita que el precio toque el borde del fondo. */
+.sug__opcion[aria-selected="true"] {
+  background: var(--surface);
+  padding-inline: 10px;
+  box-shadow: inset 2px 0 0 var(--accent-deep);
+}
+.sug__opcion[aria-selected="true"] .sug__img {
+  transform: scale(var(--foto-zoom));
+}
+.sug__opcion[aria-selected="true"] .sug__flecha {
+  opacity: 1;
+  transform: none;
+}
+.sug__opcion--chip[aria-selected="true"] {
+  padding-inline: 14px;
+  border-color: var(--ink-3);
+  background: var(--surface);
+  box-shadow: none;
+  color: var(--ink);
+}
+
+.sug__vacio {
+  padding-block: 24px 8px;
+  font-size: 0.92rem;
+  color: var(--ink-3);
+}
+.sug__vacio-titulo {
+  margin-bottom: 4px;
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+/* ---------------------------------------------------------
+   MENÚ MÓVIL (panel bosque)
+   Con algo escrito, la fila del buscador se queda fija arriba y los resultados ocupan el sitio
+   de los enlaces. El campo no se mueve al cambiar: 84 + 12 antes, 0 + 72 + 24 después.
+   --------------------------------------------------------- */
+.nav__menu-inner.is-buscando {
+  padding-top: 0;
+  padding-bottom: calc(28px + var(--teclado, 0px));
+  scroll-padding-top: calc(var(--nav-h) + 74px);
+}
+.nav__menu-inner.is-buscando .nav__menu-buscar {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding-top: calc(var(--nav-h) + 24px);
+  margin-bottom: 0;
+  background: var(--dark);
+}
+/* El botón de borrar no engorda la fila: 44 px de área táctil sobre una línea de texto. */
+.nav__menu-buscar .sug__borrar {
+  margin-block: -9px;
+  margin-right: -10px;
+  color: var(--on-dark-3);
+}
+.nav__menu-buscar .sug__borrar:hover,
+.nav__menu-buscar .sug__borrar:focus-visible {
+  background: rgba(243, 239, 231, 0.08);
+  color: var(--on-dark);
+}
+/* Al vaciar la búsqueda, el menú vuelve tal cual, sin repetir la entrada escalonada. */
+.nav__menu-inner[data-visto] :is(.nav__menu-link, .nav__menu-label, .nav__menu-pie) {
+  animation: none;
+  opacity: 1;
+  transform: none;
+}
+
+.sug--menu {
+  animation: sug-in 180ms var(--e-ui);
+}
+.sug--menu .sug__titulo {
+  color: var(--on-dark-3);
+  margin: 18px 0 4px;
+}
+.sug--menu .sug__opcion {
+  border-top: 0;
+  border-bottom: 1px solid var(--line-dark);
+  color: var(--on-dark);
+}
+.sug--menu .sug__opcion--producto {
+  grid-template-columns: 48px minmax(0, 1fr) auto;
+  gap: 14px;
+  min-height: 76px;
+  padding: 8px 0;
+}
+.sug--menu .sug__thumb {
+  width: 48px;
+  background: rgba(243, 239, 231, 0.08);
+  box-shadow: inset 0 0 0 1px var(--line-dark);
+}
+.sug--menu .sug__nombre {
+  font-weight: 300;
+  font-size: 1.35rem;
+  letter-spacing: -0.02em;
+}
+.sug--menu .sug__meta {
+  font-size: 0.8rem;
+  color: var(--on-dark-3);
+}
+.sug--menu .sug__precio {
+  font-size: 0.85rem;
+  color: var(--on-dark-2);
+}
+.sug--menu .sug__desde {
+  color: var(--on-dark-3);
+}
+.sug--menu .sug__opcion--atajo {
+  min-height: 52px;
+  padding: 10px 0;
+}
+.sug--menu .sug__opcion--todos {
+  min-height: 52px;
+  padding: 14px 0;
+}
+.sug--menu .sug__flecha {
+  color: var(--accent-on-dark);
+}
+.sug--menu .sug__opcion:active,
+.sug--menu .sug__opcion[aria-selected="true"] {
+  background: rgba(243, 239, 231, 0.06);
+  box-shadow: inset 2px 0 0 var(--accent-on-dark);
+}
+.sug--menu .sug__opcion:active .sug__nombre {
+  color: var(--accent-on-dark);
+}
+.sug--menu mark.sug__marca {
+  color: var(--accent-on-dark);
+}
+.sug--menu .sug__vacio {
+  color: var(--on-dark-3);
+}
+.sug--menu .sug__vacio-titulo {
+  color: var(--on-dark);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sug {
+    animation: none;
+  }
+  .sug__opcion {
+    transition: background-color 0.2s linear;
+  }
+  .sug__opcion:not(.sug__opcion--chip)[aria-selected="true"] {
+    padding-inline: 0;
+  }
+  .sug__img {
+    transition: none;
+    transform: none !important;
+  }
+}

@@ -1,0 +1,1281 @@
+/* =========================================================
+   Secciones de la landing de Almara
+   Ritmo: marfil → marfil → arena → foto a sangre → marfil →
+          espresso → marfil → arena → campaña → marfil → espresso
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   HERO
+   Portada de revista: titular a todo el ancho, texto funcional en una columna estrecha a la
+   derecha y la fotografía debajo, con margen a la izquierda y a sangre por la derecha.
+   --------------------------------------------------------- */
+.hero {
+  position: relative;
+  padding-top: calc(var(--nav-h) + clamp(28px, 5vh, 64px));
+  background: var(--bg);
+}
+.hero__top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 23rem);
+  gap: clamp(28px, 4vw, 72px);
+  align-items: end;
+  padding-bottom: clamp(28px, 4.5vh, 52px);
+}
+.hero__headline {
+  display: grid;
+  gap: clamp(18px, 2.6vh, 30px);
+  justify-items: start;
+}
+.hero__title {
+  margin: 0;
+  /* Se ata al ancho y al alto: dos líneas que nunca se parten ni empujan la foto fuera.
+     Titular en redonda (más ancho que con cursiva): el tamaño deja aire hasta la columna de botones. */
+  font-size: clamp(2.9rem, min(6.6vw, 12vh), 7.25rem);
+}
+@media (min-width: 900px) and (max-width: 1199px) {
+  .hero__title {
+    font-size: 5.6vw;
+  }
+}
+.hero__title .split-line {
+  white-space: nowrap;
+}
+.hero__aside {
+  display: grid;
+  gap: 22px;
+  padding-bottom: 0.5rem;
+}
+.hero__desc {
+  color: var(--ink-2);
+  font-size: 1.02rem;
+  line-height: 1.6;
+}
+.hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 26px;
+}
+.hero__cta-sec {
+  color: var(--ink);
+}
+
+.hero__stage {
+  position: relative;
+  margin-left: var(--gutter);
+}
+.hero__media {
+  height: clamp(340px, 66svh, 760px);
+}
+.hero__caption {
+  position: absolute;
+  left: 0;
+  bottom: 100%;
+  display: none;
+}
+.hero__signals {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(16px, 3vw, 48px);
+  padding-block: 20px clamp(20px, 3vw, 36px);
+  font-size: 0.95rem;
+  color: var(--ink);
+}
+.hero__signals li {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+.hero__signal-n {
+  color: var(--accent-deep);
+}
+/* Pie de foto: vertical, en el margen izquierdo que deja la fotografía. */
+@media (min-width: 1100px) {
+  .hero__caption {
+    display: block;
+    left: calc(var(--gutter) * -0.5 - 0.5em);
+    top: 0;
+    bottom: auto;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    color: var(--ink-3);
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 899px) {
+  .hero__top {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 22px;
+  }
+  .hero__title {
+    font-size: clamp(2.6rem, 12.4vw, 5rem);
+  }
+  .hero__aside {
+    max-width: 34rem;
+  }
+  .hero__stage {
+    margin-left: 0;
+  }
+  .hero__media {
+    height: auto;
+    aspect-ratio: 4 / 5;
+    max-height: 78svh;
+  }
+}
+@media (min-width: 560px) and (max-width: 899px) {
+  .hero__media {
+    aspect-ratio: 3 / 2;
+  }
+}
+@media (max-width: 640px) {
+  .hero__signals {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding-top: 8px;
+  }
+  .hero__signals li {
+    padding-block: 13px;
+    border-top: 0;
+    border-bottom: 1px solid var(--line);
+  }
+}
+@media (max-width: 560px) {
+  .final__ctas {
+    display: grid;
+    width: 100%;
+    gap: 10px;
+  }
+  .final__ctas .btn {
+    width: 100%;
+  }
+}
+
+/* Escala de firmeza */
+.firmeza {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+}
+.firmeza__eje {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 12px;
+}
+.firmeza__eje::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.28;
+}
+.firmeza__paso {
+  position: relative;
+  width: 1px;
+  height: 7px;
+  background: currentColor;
+  opacity: 0.4;
+}
+.firmeza__paso.is-activo {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 1;
+}
+.firmeza__extremos {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-3);
+}
+
+/* ---------------------------------------------------------
+   CONFORT (editorial de materiales + ficha de capas)
+   --------------------------------------------------------- */
+.comfort {
+  padding-block: var(--section-y);
+  background: var(--bg);
+}
+.comfort__grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(18px, 2.6vw, 44px);
+  align-items: end;
+}
+.comfort__copy {
+  grid-column: 1 / 7;
+  display: grid;
+  gap: 22px;
+  justify-items: start;
+}
+.comfort__text {
+  display: grid;
+  gap: 16px;
+  max-width: 54ch;
+  color: var(--ink-2);
+}
+.comfort__media-col {
+  grid-column: 8 / 13;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+.comfort__caption {
+  color: var(--ink-3);
+}
+
+.comfort__ficha {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(18px, 2.6vw, 44px);
+  align-items: center;
+  margin-top: clamp(56px, 8vw, 128px);
+  padding-top: clamp(28px, 3vw, 44px);
+  border-top: 1px solid var(--line-strong);
+}
+.comfort__corte {
+  grid-column: 1 / 7;
+  display: grid;
+  gap: 18px;
+}
+.comfort__ficha-titulo {
+  color: var(--ink-3);
+}
+.comfort__nota {
+  font-size: 0.78rem;
+  color: var(--ink-3);
+}
+.corte {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.corte__capa rect {
+  fill: var(--bg-2);
+  stroke: var(--line-strong);
+  stroke-width: 1;
+  transition: fill var(--t-content) var(--e-ui), stroke var(--t-content) var(--e-ui);
+}
+.corte__trazo {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 1;
+  transition: stroke var(--t-content) var(--e-ui);
+}
+.corte__capa.is-activa rect {
+  fill: var(--brand);
+  stroke: var(--brand);
+}
+.corte__capa.is-activa .corte__trazo {
+  stroke: rgba(243, 239, 231, 0.5);
+}
+.comfort__capas {
+  grid-column: 8 / 13;
+  border-top: 1px solid var(--line);
+}
+.capa {
+  position: relative;
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 2px 8px;
+  width: 100%;
+  padding: 18px 0 18px 0;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  transition: padding-left var(--t-content) var(--e-ui);
+}
+.capa::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -1px;
+  bottom: -1px;
+  width: 2px;
+  background: var(--accent);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform var(--t-content) var(--e-ui);
+}
+.capa.is-activa {
+  padding-left: 16px;
+}
+.capa.is-activa::before {
+  transform: scaleY(1);
+}
+.capa__n {
+  grid-row: 1 / 3;
+  padding-top: 0.55em;
+  color: var(--ink-3);
+}
+.capa.is-activa .capa__n {
+  color: var(--accent-deep);
+}
+.capa__k {
+  font-family: var(--font-serif);
+  font-weight: 350;
+  font-size: clamp(1.45rem, 2vw, 1.85rem);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--ink);
+}
+.capa__texto {
+  grid-column: 2;
+  font-size: var(--fs-small);
+  color: var(--ink-2);
+  max-width: 44ch;
+}
+@media (max-width: 899px) {
+  .comfort__grid,
+  .comfort__ficha {
+    grid-template-columns: 1fr;
+    row-gap: 32px;
+  }
+  .comfort__copy,
+  .comfort__media-col,
+  .comfort__corte,
+  .comfort__capas {
+    grid-column: 1;
+  }
+  .comfort__media-col {
+    max-width: 520px;
+  }
+  .comfort__corte {
+    position: sticky;
+    top: 60px;
+    z-index: 2;
+    padding-block: 12px;
+    background: var(--bg);
+  }
+  .comfort__corte .comfort__nota {
+    display: none;
+  }
+}
+
+/* ---------------------------------------------------------
+   CÓMO ELEGIR (bosque)
+   Tres preguntas en tres columnas separadas por reglas; el numeral manda.
+   --------------------------------------------------------- */
+.guide {
+  position: relative;
+  padding-block: var(--section-y);
+  background: var(--dark);
+  color: var(--on-dark-2);
+  overflow: hidden;
+}
+/* Velo del color claro anterior: se retira hacia abajo al entrar la sección. */
+.guide__veil {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: var(--bg);
+  transform: scaleY(0);
+  transform-origin: bottom center;
+  pointer-events: none;
+  will-change: transform;
+}
+.guide .display,
+.guide .h3 {
+  color: var(--on-dark);
+}
+.guide__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 24rem);
+  gap: clamp(24px, 4vw, 72px);
+  align-items: end;
+  margin-bottom: clamp(48px, 6vw, 96px);
+}
+.guide__titulo {
+  display: grid;
+  gap: 20px;
+  justify-items: start;
+}
+.guide__steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.step {
+  position: relative;
+  padding: 0 clamp(18px, 2.4vw, 40px);
+  border-left: 1px solid var(--line-dark);
+}
+.step:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+.step:last-child {
+  padding-right: 0;
+}
+.step__rule {
+  display: none;
+}
+.step__inner {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  gap: 14px;
+  height: 100%;
+}
+.step__n {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(3.4rem, 6vw, 6rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--accent-on-dark);
+  margin-bottom: clamp(12px, 2vw, 28px);
+}
+.step__title {
+  font-size: clamp(1.45rem, 2vw, 1.9rem);
+}
+.step__text {
+  max-width: 40ch;
+}
+.step__hint {
+  margin-top: 10px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line-dark);
+  color: var(--on-dark-3);
+  font-size: 0.85rem;
+}
+.guide__pie {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  margin-top: clamp(40px, 5vw, 72px);
+  padding-top: 22px;
+  border-top: 1px solid var(--line-dark);
+  color: var(--on-dark);
+}
+@media (max-width: 899px) {
+  .guide__head {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 18px;
+  }
+  .guide__steps {
+    grid-template-columns: 1fr;
+  }
+  .step,
+  .step:first-child,
+  .step:last-child {
+    padding: 24px 0 28px;
+    border-left: 0;
+  }
+  .step__rule {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .step__inner {
+    grid-template-columns: 64px minmax(0, 1fr);
+    grid-template-rows: none;
+    gap: 8px 12px;
+  }
+  .step__n {
+    grid-row: 1 / 4;
+    font-size: 3rem;
+    margin: 0;
+  }
+  .step__inner > :not(.step__n) {
+    grid-column: 2;
+  }
+}
+
+/* ---------------------------------------------------------
+   NOSOTROS
+   --------------------------------------------------------- */
+.about {
+  padding-block: var(--section-y);
+  background: var(--bg);
+}
+.about__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  gap: clamp(32px, 5vw, 96px);
+  align-items: center;
+}
+.about__copy {
+  display: grid;
+  gap: 20px;
+}
+.about__text {
+  display: grid;
+  gap: 16px;
+  max-width: var(--measure);
+}
+.about__rule {
+  margin-top: 10px;
+}
+.about__values {
+  display: grid;
+  gap: 0;
+}
+.about__values li {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr);
+  gap: 18px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+.about__value-k {
+  font-weight: 600;
+  color: var(--ink);
+}
+.about__value-t {
+  color: var(--ink-2);
+  font-size: var(--fs-small);
+}
+.about__media-col {
+  display: grid;
+  gap: 14px;
+  justify-items: end;
+}
+.about__caption {
+  color: var(--ink-3);
+}
+@media (max-width: 1023px) {
+  .about__grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .about__media-col {
+    max-width: 520px;
+    justify-items: start;
+  }
+}
+@media (max-width: 520px) {
+  .about__values li {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}
+
+/* ---------------------------------------------------------
+   FAQ
+   --------------------------------------------------------- */
+.faq {
+  padding-block: var(--section-y);
+  background: var(--bg-2);
+}
+.faq__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(32px, 5vw, 92px);
+  align-items: start;
+}
+.faq__side {
+  display: grid;
+  gap: 20px;
+  justify-items: start;
+  position: sticky;
+  top: calc(var(--nav-h) + 40px);
+}
+.faq__more {
+  display: grid;
+  justify-items: start;
+  gap: 14px;
+  margin-top: 8px;
+  color: var(--ink-2);
+}
+.faq__list {
+  border-top: 1px solid var(--line-strong);
+}
+@media (max-width: 1023px) {
+  .faq__grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .faq__side {
+    position: static;
+  }
+}
+
+/* ---------------------------------------------------------
+   CIERRE
+   Mismo verde que el pie: CTA y pie son una sola pieza.
+   --------------------------------------------------------- */
+.final {
+  position: relative;
+  padding-block: var(--section-y) clamp(56px, 7vw, 112px);
+  background: var(--dark);
+  color: var(--on-dark-2);
+  overflow: hidden;
+}
+.final__grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(18px, 2.6vw, 44px);
+  align-items: end;
+}
+.final__inner {
+  grid-column: 1 / 8;
+  display: grid;
+  justify-items: start;
+  gap: clamp(18px, 2vw, 28px);
+}
+.final__title {
+  color: var(--on-dark);
+  font-size: clamp(2.9rem, min(7vw, 13vh), 7.5rem);
+}
+.final__title .accent {
+  color: var(--accent-on-dark);
+}
+.final__sub {
+  max-width: 44ch;
+  color: var(--on-dark-2);
+}
+.final__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+.final__ctas .btn {
+  min-width: 250px;
+}
+.final__foto {
+  grid-column: 9 / 13;
+}
+.final__foto .media {
+  background: var(--dark-2);
+}
+@media (max-width: 899px) {
+  .final__grid {
+    grid-template-columns: 1fr;
+    row-gap: 40px;
+  }
+  .final__inner,
+  .final__foto {
+    grid-column: 1;
+  }
+  .final__foto {
+    max-width: 440px;
+  }
+  .final__foto .media {
+    --ratio: 4 / 3 !important;
+  }
+}
+
+/* ---------------------------------------------------------
+   CONSULTA
+   --------------------------------------------------------- */
+.consulta {
+  padding-block: var(--section-y);
+  background: var(--bg);
+}
+.consulta__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(32px, 5vw, 88px);
+  align-items: start;
+}
+.consulta__copy {
+  display: grid;
+  gap: 20px;
+  position: sticky;
+  top: calc(var(--nav-h) + 40px);
+}
+@media (max-width: 1023px) {
+  .consulta__grid {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+  .consulta__copy {
+    position: static;
+  }
+}
+
+/* ---------------------------------------------------------
+   FOOTER
+   --------------------------------------------------------- */
+.footer {
+  padding-block: 0 24px;
+  background: var(--dark);
+  color: var(--on-dark-2);
+  overflow: hidden;
+}
+.footer__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+  gap: clamp(28px, 4vw, 64px);
+  padding-block: clamp(36px, 4.5vw, 64px) clamp(40px, 6vw, 88px);
+  border-top: 1px solid var(--line-dark);
+}
+.footer__claim {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(1.6rem, 2.4vw, 2.3rem);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: var(--on-dark);
+  max-width: 16ch;
+}
+.footer__mail {
+  display: inline-block;
+  margin-top: 18px;
+  color: var(--on-dark);
+  font-size: 0.95rem;
+}
+.footer__title {
+  color: var(--on-dark-3);
+  margin-bottom: 18px;
+}
+.footer__col ul {
+  display: grid;
+  gap: 4px;
+  font-size: 0.95rem;
+}
+.footer__col a {
+  display: inline-block;
+  padding-block: 5px;
+  color: var(--on-dark-2);
+  transition: color var(--t-hover) var(--e-ui);
+}
+.footer__col a:hover {
+  color: var(--on-dark);
+}
+.footer__muted {
+  padding-top: 10px;
+  font-size: 0.82rem;
+  color: var(--on-dark-3);
+}
+
+/* Wordmark de remate: ocupa el ancho del pie y se revela bajo máscara. */
+.footer__markline {
+  border-top: 1px solid var(--line-dark);
+  padding-top: clamp(12px, 2vw, 28px);
+}
+.footer__mark {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(4.6rem, 24.5vw, 23rem);
+  line-height: 0.8;
+  letter-spacing: -0.055em;
+  color: var(--on-dark);
+  margin: 0 0 0 -0.04em;
+  text-align: left;
+}
+/* La máscara de línea deja sitio al ápice de la «A», al asta de la «l» y a la serifa izquierda:
+   con line-height 0.8 los recortaba en plano. */
+.footer__mark-line {
+  padding: 0.14em 0 0.14em 0.05em;
+  margin: -0.14em 0 -0.04em -0.05em;
+}
+
+.footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+  padding-top: 20px;
+  font-size: 0.78rem;
+  color: var(--on-dark-3);
+}
+@media (max-width: 900px) {
+  .footer__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .footer__intro {
+    grid-column: 1 / -1;
+  }
+  .footer__col a {
+    padding-block: 9px;
+  }
+}
+
+/* ---------------------------------------------------------
+   ALMARA COMFORT LAB (3D)
+   Un visor oscuro, como una mesa de luz al revés: el colchón claro sobre bosque. Los controles
+   no flotan sobre el modelo; viven en una barra propia al pie del visor.
+   --------------------------------------------------------- */
+.lab {
+  padding-block: var(--section-y);
+  background: var(--bg-2);
+}
+.lab__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 24rem);
+  gap: clamp(24px, 4vw, 72px);
+  align-items: end;
+  margin-bottom: clamp(32px, 4.5vw, 64px);
+}
+.lab__titulo {
+  display: grid;
+  gap: 20px;
+  justify-items: start;
+}
+.lab__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2.1fr) minmax(0, 1fr);
+  gap: clamp(24px, 3.4vw, 64px);
+  align-items: stretch;
+}
+.lab__visor {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  background: var(--dark);
+  color: var(--on-dark);
+  min-width: 0;
+}
+.lab__stage {
+  position: relative;
+  min-height: clamp(400px, 46vw, 640px);
+  overflow: hidden;
+  /* Luz de suelo: asienta el objeto sin dibujar un escenario. */
+  background: radial-gradient(ellipse 62% 40% at 50% 66%, rgba(243, 239, 231, 0.13), rgba(243, 239, 231, 0) 72%);
+}
+.lab__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: grab;
+  /* El gesto vertical sigue siendo de la página: en táctil solo se gira en horizontal. */
+  touch-action: pan-y;
+  opacity: 0;
+  transition: opacity 800ms var(--e-ui);
+  outline-offset: -4px;
+}
+.lab__stage.is-ready .lab__canvas {
+  opacity: 1;
+}
+.lab__canvas[data-dragging] {
+  cursor: grabbing;
+}
+.lab__loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 14px;
+  color: var(--on-dark-3);
+}
+.lab__loading-bar {
+  position: relative;
+  width: 120px;
+  height: 1px;
+  background: var(--line-dark);
+  overflow: hidden;
+}
+.lab__loading-bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--on-dark);
+  transform: translateX(-100%);
+  animation: lab-carga 1.4s var(--e-mask) infinite;
+}
+@keyframes lab-carga {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.lab__marca,
+.lab__hint {
+  position: absolute;
+  top: clamp(14px, 1.8vw, 22px);
+  color: var(--on-dark-3);
+  pointer-events: none;
+}
+.lab__marca {
+  left: clamp(14px, 1.8vw, 24px);
+  color: var(--on-dark);
+}
+.lab__marca span {
+  margin-left: 10px;
+  color: var(--on-dark-3);
+}
+.lab__hint {
+  right: clamp(14px, 1.8vw, 24px);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--on-dark-2);
+  opacity: 0;
+  transition: opacity 400ms var(--e-ui);
+}
+.lab__stage.is-ready .lab__hint {
+  opacity: 1;
+}
+.lab__stage.is-ready .lab__hint.is-hidden {
+  opacity: 0;
+}
+
+.lab__hotspots {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.lab__hotspot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  /* Área táctil de 44 px alrededor de un marcador de 26. */
+  margin: -22px 0 0 -22px;
+  padding: 9px;
+  pointer-events: auto;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 260ms var(--e-ui), visibility 260ms;
+  will-change: transform;
+}
+.lab__hotspot[data-visible="true"] {
+  opacity: 1;
+  visibility: visible;
+}
+.lab__hotspot-dot {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--on-dark);
+  color: var(--ink);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+  box-shadow: 0 0 0 5px rgba(243, 239, 231, 0.16);
+  transition: background-color var(--t-hover) var(--e-ui), color var(--t-hover) var(--e-ui),
+    box-shadow var(--t-button) var(--e-ui), transform var(--t-button) var(--e-ui);
+}
+.lab__hotspot-label {
+  padding: 5px 9px;
+  background: var(--on-dark);
+  color: var(--ink);
+  font-size: 0.74rem;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity var(--t-hover) var(--e-ui), transform var(--t-hover) var(--e-ui);
+}
+.lab__hotspot:hover .lab__hotspot-label,
+.lab__hotspot:focus-visible .lab__hotspot-label,
+.lab__hotspot.is-active .lab__hotspot-label {
+  opacity: 1;
+  transform: translateX(0);
+}
+.lab__hotspot:hover .lab__hotspot-dot,
+.lab__hotspot.is-active .lab__hotspot-dot {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 0 0 8px rgba(182, 111, 87, 0.22);
+}
+
+/* Barra de controles */
+.lab__controls {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  border-top: 1px solid var(--line-dark);
+}
+.lab__grupo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px clamp(14px, 1.8vw, 24px);
+  border-right: 1px solid var(--line-dark);
+}
+.lab__grupo-label {
+  color: var(--on-dark-3);
+}
+.lab__segmentos {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr));
+  border: 1px solid var(--line-dark);
+  border-radius: var(--radius);
+}
+/* La marca se desliza de un segmento a otro: el cambio de vista se lee como continuidad. */
+.lab__segmentos-marca {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: calc(100% / var(--n, 3));
+  background: var(--on-dark);
+  transform: translateX(calc(var(--i, 0) * 100%));
+  transition: transform 420ms var(--e-ui), opacity 240ms var(--e-ui);
+}
+.lab__segmentos[data-sin-vista] .lab__segmentos-marca {
+  opacity: 0;
+}
+.lab__view {
+  position: relative;
+  z-index: 1;
+  min-height: 40px;
+  padding: 0 16px;
+  font-size: 0.84rem;
+  font-weight: 450;
+  color: var(--on-dark-2);
+  white-space: nowrap;
+  transition: color var(--t-hover) var(--e-ui);
+}
+.lab__view:hover:not(:disabled) {
+  color: var(--on-dark);
+}
+.lab__view.is-active,
+.lab__view.is-active:hover {
+  color: var(--ink);
+}
+.lab__giro {
+  display: flex;
+  gap: 6px;
+}
+.lab__giro-btn {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--line-dark);
+  border-radius: var(--radius);
+  color: var(--on-dark);
+  transition: background-color var(--t-hover) var(--e-ui), color var(--t-hover) var(--e-ui), transform 160ms var(--e-ui);
+}
+.lab__giro-btn:hover:not(:disabled) {
+  background: var(--on-dark);
+  color: var(--ink);
+}
+.lab__giro-btn:active:not(:disabled) {
+  transform: scale(0.94);
+}
+.lab__capas {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+  padding: 12px clamp(14px, 1.8vw, 24px);
+  font-size: 0.88rem;
+  font-weight: 450;
+  color: var(--on-dark);
+}
+.lab__capas-pista {
+  position: relative;
+  width: 40px;
+  height: 22px;
+  border-radius: 11px;
+  border: 1px solid rgba(243, 239, 231, 0.4);
+  transition: background-color var(--t-button) var(--e-ui), border-color var(--t-button) var(--e-ui);
+}
+.lab__capas-pista span {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--on-dark);
+  transition: transform var(--t-button) var(--e-ui);
+}
+.lab__capas.is-active .lab__capas-pista {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.lab__capas.is-active .lab__capas-pista span {
+  transform: translateX(18px);
+}
+.lab__controls :disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.lab__fallback {
+  position: absolute;
+  inset: 0;
+}
+.lab__fallback img {
+  object-fit: cover;
+}
+.lab__fallback-note {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  padding: 12px 16px;
+  background: var(--bg);
+  color: var(--ink-2);
+  font-size: var(--fs-small);
+}
+
+/* Panel: acordeón de una sola apertura, con altura animada por grid (sin medir en JS). */
+/* Contador y lista van juntos y centrados a la altura del modelo: con `space-between` la lista
+   caía al fondo del visor y quedaba un hueco vacío encima. */
+.lab__panel {
+  display: grid;
+  align-content: center;
+  gap: 18px;
+}
+.lab__panel-cuenta {
+  color: var(--ink);
+}
+.lab__panel-cuenta span {
+  color: var(--ink-3);
+}
+.lab__list {
+  display: grid;
+  border-bottom: 1px solid var(--line-strong);
+}
+.lab__item {
+  position: relative;
+  border-top: 1px solid var(--line-strong);
+}
+.lab__item-btn {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr) 14px;
+  align-items: baseline;
+  gap: 10px;
+  width: 100%;
+  min-height: 48px;
+  padding: 20px 0 8px;
+  text-align: left;
+}
+.lab__item-n {
+  color: var(--ink-3);
+  transition: color var(--t-hover) var(--e-ui);
+}
+.lab__item-title {
+  font-family: var(--font-serif);
+  font-weight: 350;
+  font-size: clamp(1.6rem, 2.3vw, 2.2rem);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--ink-3);
+  transition: color var(--t-button) var(--e-ui);
+}
+.lab__item-signo {
+  position: relative;
+  align-self: center;
+  width: 13px;
+  height: 13px;
+  color: var(--ink-3);
+}
+.lab__item-signo::before,
+.lab__item-signo::after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 0;
+  width: 13px;
+  height: 1px;
+  background: currentColor;
+  transition: transform var(--t-button) var(--e-ui);
+}
+.lab__item-signo::after {
+  transform: rotate(90deg);
+}
+.lab__item.is-active .lab__item-signo::after {
+  transform: rotate(0deg);
+}
+.lab__item-btn:hover .lab__item-title,
+.lab__item.is-active .lab__item-title {
+  color: var(--ink);
+}
+.lab__item.is-active .lab__item-n {
+  color: var(--accent-deep);
+}
+.lab__item-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  padding-left: 46px;
+  opacity: 0;
+  transition: grid-template-rows 460ms var(--e-ui), opacity 300ms var(--e-ui), padding-bottom 460ms var(--e-ui);
+}
+.lab__item-body > p {
+  overflow: hidden;
+  color: var(--ink-2);
+  max-width: 44ch;
+}
+.lab__item.is-active .lab__item-body {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  padding-bottom: 22px;
+}
+.lab__item:not(.is-active) .lab__item-btn {
+  padding-bottom: 20px;
+}
+
+@media (max-width: 1023px) {
+  .lab__head {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 18px;
+  }
+  .lab__grid {
+    grid-template-columns: 1fr;
+  }
+  .lab__stage {
+    min-height: clamp(340px, 78vw, 560px);
+  }
+  .lab__panel-cuenta {
+    display: none;
+  }
+}
+@media (max-width: 720px) {
+  /* En móvil el visor sangra a los bordes y los controles pasan a dos filas de ancho completo. */
+  .lab__visor {
+    margin-inline: calc(var(--gutter) * -1);
+  }
+  .lab__controls {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .lab__grupo {
+    padding: 12px var(--gutter);
+  }
+  .lab__grupo:first-child {
+    grid-column: 1 / -1;
+    border-right: 0;
+    border-bottom: 1px solid var(--line-dark);
+  }
+  .lab__grupo:first-child .lab__grupo-label {
+    display: none;
+  }
+  .lab__segmentos {
+    width: 100%;
+  }
+  .lab__view {
+    min-height: 44px;
+    padding: 0 6px;
+  }
+  .lab__grupo--giro {
+    order: 3;
+    border-right: 0;
+    border-left: 1px solid var(--line-dark);
+  }
+  .lab__grupo--giro .lab__grupo-label {
+    display: none;
+  }
+  .lab__giro-btn {
+    width: 44px;
+    height: 44px;
+  }
+  .lab__capas {
+    order: 2;
+    margin-left: 0;
+    min-height: 44px;
+    padding-inline: var(--gutter);
+  }
+  .lab__marca span,
+  .lab__hotspot-label {
+    display: none;
+  }
+}
+

@@ -1,0 +1,47 @@
+# Comprobaciones estables en cada push y pull request.
+# home-qa y a11y corren contra el build de producción; los scripts que dependen de tiempos
+# (nav-qa, perf, carga) quedan fuera del CI porque fluctúan con la máquina.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - name: Servidor de producción
+        run: |
+          PORT=3011 npm run start &
+          for i in $(seq 1 60); do curl -sf http://localhost:3011/ >/dev/null && break; sleep 1; done
+      - run: node scripts/home-qa.mjs
+        env:
+          URL: http://localhost:3011
+      - run: node scripts/a11y.mjs
+        env:
+          URL: http://localhost:3011
+      - run: node scripts/tienda.mjs
+        env:
+          URL: http://localhost:3011
+      - run: node scripts/interaccion-qa.mjs
+        env:
+          URL: http://localhost:3011
+      - run: node scripts/busqueda-unit.mjs
+      - run: node scripts/buscador-qa.mjs
+        env:
+          URL: http://localhost:3011
+      - run: node scripts/regresion-qa.mjs
+        env:
+          URL: http://localhost:3011

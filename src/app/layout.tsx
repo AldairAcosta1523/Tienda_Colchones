@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Onest, Newsreader } from "next/font/google";
+import { Brygada_1918, Schibsted_Grotesk } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import SmoothScroll from "@/lib/SmoothScroll";
@@ -18,17 +18,16 @@ import Footer from "@/components/layout/Footer";
 import Cursor from "@/components/core/Cursor";
 import CartDrawer from "@/components/shop/CartDrawer";
 
-/* Dos familias, ambas variables (un archivo por estilo): Onest para lo funcional y Newsreader,
-   con su eje óptico, para que los titulares grandes afinen el contraste por sí solos. */
-const sans = Onest({
-  subsets: ["latin"],
+/* Dos familias variables. Brygada 1918 (revival de una serif de imprenta polaca, 400-700)
+   para titulares y momentos de marca: en 400 se lee ligera y el peso alto queda para lo que
+   importa. Schibsted Grotesk para lo funcional: navegación, texto, botones, precios. */
+const sans = Schibsted_Grotesk({
+  subsets: ["latin", "latin-ext"],
   variable: "--font-sans",
   display: "swap",
 });
-const serif = Newsreader({
-  subsets: ["latin"],
-  style: ["normal"],
-  axes: ["opsz"],
+const serif = Brygada_1918({
+  subsets: ["latin", "latin-ext"],
   variable: "--font-serif",
   display: "swap",
 });

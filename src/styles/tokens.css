@@ -34,19 +34,21 @@
   --line-dark: rgba(243, 239, 231, 0.16);
 
   /* ---------- Tipografía ----------
-     Newsreader (serif editorial con eje óptico) para titulares y momentos de marca;
-     Onest para todo lo funcional: navegación, precios, botones, texto corrido. */
-  --font-sans: "Onest", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-serif: "Newsreader", "Iowan Old Style", Georgia, "Times New Roman", serif;
+     Brygada 1918 en 400 para titulares; el 600 solo para lo importante (palabra clave del
+     titular, precios, logo). Schibsted Grotesk para todo lo funcional: navegación,
+     botones, texto corrido.
+     Las etiquetas van en caja normal: la versalita espaciada era el tic de plantilla. */
+  --font-sans: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Brygada 1918", "Iowan Old Style", Georgia, "Times New Roman", serif;
 
-  --fs-mega: clamp(3rem, min(8.6vw, 15vh), 8.75rem);
-  --fs-display: clamp(2.7rem, min(6.6vw, 11vh), 6.25rem);
-  --fs-h2: clamp(2.1rem, min(4.5vw, 8vh), 4.1rem);
+  --fs-mega: clamp(2.3rem, min(7.9vw, 14vh), 8rem);
+  --fs-display: clamp(2.2rem, min(6vw, 10vh), 5.6rem);
+  --fs-h2: clamp(1.8rem, min(4.1vw, 7.4vh), 3.7rem);
   --fs-h3: clamp(1.3rem, 1.8vw, 1.6rem);
   --fs-lead: clamp(1.05rem, 1.25vw, 1.2rem);
-  --fs-body: 1rem;
+  --fs-body: 1.0625rem;
   --fs-small: 0.92rem;
-  --fs-label: 0.72rem;
+  --fs-label: 0.84rem;
 
   /* Etalonaje común: las fotos vienen de autores distintos; un mismo velo cálido las hermana. */
   /* Calidez sutil: con más sepia y menos saturación la foto se veía apagada y blanda. */

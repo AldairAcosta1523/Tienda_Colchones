@@ -94,11 +94,15 @@ poco: índices, estados activos, el marcador de firmeza. Nunca como fondo de tex
 
 ### Tipografía
 
-- **Newsreader** (variable, con eje óptico) — titulares, nombres de producto, numerales, precios
-  destacados. Peso 300–350 y tracking cerrado (−0,026 a −0,04 em): el tamaño hace el trabajo.
-  Sin cursivas en ningún sitio (titulares, numerales de la guía, etiqueta del modelo 3D): se leían
-  como tic de plantilla. La palabra destacada (`.accent`) solo cambia de color en secciones oscuras.
-- **Onest** (variable) — navegación, texto, botones, precios, etiquetas (500, caja alta, 0,14 em).
+- **Brygada 1918** (variable 400–700) — titulares, nombres de producto, numerales, logo. Titulares
+  en 400 para que la página se lea ligera; el 600 se reserva para lo importante: la palabra clave
+  del titular (`.accent`) y el logo. Tracking −0,018 a −0,026 em. Sin cursivas en ningún sitio.
+- **Schibsted Grotesk** (variable 400–900) — navegación, texto, botones, precios, etiquetas. Todo en
+  400 salvo botones (500) y precios o totales (600). Etiquetas en caja normal, 0,84 rem: nada de
+  versalitas espaciadas.
+
+(Cambio de tipografía del 2026-10-08: antes Newsreader + Onest. Se probó Young Serif, pero al tener
+un solo peso grueso todo se leía en negrita.)
 
 Escalas con `clamp()` atadas a ancho **y** alto (`min(vw, vh)`) para que el hero no empuje la
 fotografía fuera del primer pantallazo. `text-wrap: balance/pretty` en titulares y párrafos.

@@ -28,7 +28,8 @@ body {
   font-family: var(--font-sans);
   font-size: var(--fs-body);
   line-height: 1.62;
-  font-feature-settings: "ss01", "cv11";
+  font-feature-settings: "kern";
+  font-kerning: normal;
   color: var(--ink-2);
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
@@ -128,41 +129,41 @@ dd {
 }
 
 /* ---------- Tipografía ----------
-   Titulares en Newsreader, peso ligero y tracking cerrado: el tamaño hace el trabajo, no el
-   grosor. La interfaz va en Onest. Sin cursivas: la palabra destacada (`.accent`) solo cambia
-   de color donde la sección lo pide. */
+   Titulares en Brygada 1918 a 400: ligeros. El 600 se reserva para la palabra clave
+   (`.accent`), así la negrita marca lo importante y no todo. La interfaz va en Schibsted Grotesk.
+   Sin cursivas. */
 .t-mega,
 .display,
 .h2,
 .h3 {
   color: var(--ink);
   font-family: var(--font-serif);
-  font-weight: 350;
+  font-weight: 400;
   font-optical-sizing: auto;
   text-wrap: balance;
 }
 .t-mega {
   font-size: var(--fs-mega);
-  line-height: 0.94;
-  letter-spacing: -0.035em;
-  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.026em;
+  font-weight: 400;
 }
 .display {
   font-size: var(--fs-display);
-  line-height: 0.98;
-  letter-spacing: -0.03em;
-  font-weight: 300;
+  line-height: 1.02;
+  letter-spacing: -0.022em;
+  font-weight: 400;
 }
 .h2 {
   font-size: var(--fs-h2);
-  line-height: 1.02;
-  letter-spacing: -0.026em;
+  line-height: 1.06;
+  letter-spacing: -0.016em;
 }
 .h3 {
   font-size: var(--fs-h3);
   font-weight: 400;
   line-height: 1.18;
-  letter-spacing: -0.014em;
+  letter-spacing: -0.008em;
 }
 .lead {
   font-size: var(--fs-lead);
@@ -174,13 +175,12 @@ p {
   text-wrap: pretty;
 }
 
-/* Microetiqueta: Onest en caja alta, tracking amplio. */
+/* Microetiqueta: Schibsted en caja normal, peso regular. Sin versalitas espaciadas. */
 .label {
   font-family: var(--font-sans);
   font-size: var(--fs-label);
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-weight: 400;
+  letter-spacing: 0.005em;
   line-height: 1.4;
 }
 /* Cifras de precio y medidas: tabulares, para que las columnas alineen. */
@@ -192,7 +192,7 @@ p {
 .accent {
   /* Anula la cursiva que el navegador da a <em>. */
   font-style: normal;
-  font-weight: 300;
+  font-weight: 600;
   color: inherit;
 }
 

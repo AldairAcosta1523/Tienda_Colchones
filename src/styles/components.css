@@ -7,9 +7,8 @@
   gap: 12px;
   font-family: var(--font-sans);
   font-size: var(--fs-label);
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-weight: 400;
+  letter-spacing: 0.005em;
   color: var(--ink-3);
 }
 .eyebrow__dot {
@@ -219,7 +218,7 @@ a:focus-visible > .link-underline::after {
   align-items: center;
   gap: 10px;
   padding-bottom: 4px;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 0.92rem;
   color: var(--ink);
   background: linear-gradient(currentColor, currentColor) left bottom / 100% 1px no-repeat;
@@ -328,9 +327,8 @@ a:focus-visible > .link-underline::after {
 .cursor__label {
   font-family: var(--font-sans);
   font-size: 0.66rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-weight: 400;
+  letter-spacing: 0.005em;
   color: var(--on-dark);
   opacity: 0;
   white-space: nowrap;
@@ -361,7 +359,7 @@ a:focus-visible > .link-underline::after {
   border: 1px solid var(--line);
   background: transparent;
   font-size: 0.8rem;
-  font-weight: 500;
+  font-weight: 400;
   color: var(--ink-2);
 }
 .pill--sage {
@@ -399,9 +397,9 @@ a:focus-visible > .link-underline::after {
 .preloader__mark {
   display: block;
   font-family: var(--font-serif);
-  font-weight: 300;
+  font-weight: 400;
   font-size: clamp(2.8rem, 9vw, 5rem);
-  letter-spacing: -0.03em;
+  letter-spacing: -0.018em;
   line-height: 1.04;
   color: var(--ink);
   will-change: transform;
@@ -569,10 +567,10 @@ html.menu-open {
 }
 .wordmark__name {
   font-family: var(--font-serif);
-  font-weight: 400;
+  font-weight: 600;
   font-size: 1.72rem;
   line-height: 1;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.021em;
   color: currentColor;
 }
 

@@ -65,9 +65,9 @@
   border: 0;
   background: none;
   font-family: var(--font-serif);
-  font-weight: 300;
+  font-weight: 400;
   font-size: clamp(1.4rem, 2.4vw, 2.1rem);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.012em;
   color: var(--ink);
   outline: none;
 }
@@ -126,9 +126,9 @@
 .mega__producto-nombre,
 .mega__categoria-nombre {
   font-family: var(--font-serif);
-  font-weight: 350;
+  font-weight: 400;
   font-size: 1.5rem;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.012em;
   line-height: 1.1;
   color: var(--ink);
 }
@@ -178,9 +178,9 @@
 }
 .mega__todo-texto {
   font-family: var(--font-serif);
-  font-weight: 300;
+  font-weight: 400;
   font-size: 1.7rem;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.012em;
   line-height: 1.1;
 }
 .mega__todo-nota {
@@ -551,10 +551,10 @@ body:has([data-slot="sheet-overlay"][data-state="open"]) :is(.demo-banner, .cmp-
   min-width: 0;
   text-wrap: balance;
   font-family: var(--font-serif);
-  font-weight: 350;
+  font-weight: 400;
   font-size: clamp(1.35rem, 1.8vw, 1.65rem);
   line-height: 1.12;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.012em;
   color: var(--ink);
 }
 .pcard__nombre a {
@@ -950,7 +950,7 @@ body:has([data-slot="sheet-overlay"][data-state="open"]) :is(.demo-banner, .cmp-
 }
 .pdp__variante-nombre {
   font-size: 0.92rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--ink);
 }
 .pdp__variante-medida {
@@ -1188,9 +1188,8 @@ body:has([data-slot="sheet-overlay"][data-state="open"]) :is(.demo-banner, .cmp-
 .pcomp__tabla thead th,
 .comp__tabla thead th {
   font-size: var(--fs-label);
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.005em;
   color: var(--ink-3);
 }
 .comp__tabla thead th {
@@ -1212,12 +1211,12 @@ body:has([data-slot="sheet-overlay"][data-state="open"]) :is(.demo-banner, .cmp-
   max-width: 22ch;
 }
 .comp__tabla tbody th {
-  font-weight: 600;
+  font-weight: 500;
   color: var(--ink);
 }
 .pcomp__tabla tbody th {
   color: var(--ink);
-  font-weight: 600;
+  font-weight: 500;
 }
 .pcomp__tabla tr.is-actual {
   background: var(--bg-2);
@@ -1322,10 +1321,10 @@ body:has([data-slot="sheet-overlay"][data-state="open"]) :is(.demo-banner, .cmp-
 }
 .cat__nombre {
   font-family: var(--font-serif);
-  font-weight: 300;
+  font-weight: 400;
   font-size: clamp(2.2rem, 4.4vw, 4.2rem);
   line-height: 1;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.018em;
   color: var(--ink);
   transition: opacity var(--t-content) var(--e-ui);
 }
@@ -1576,10 +1575,10 @@ body:has([data-slot="sheet-overlay"][data-state="open"]) :is(.demo-banner, .cmp-
 }
 .promesa__titulo {
   font-family: var(--font-serif);
-  font-weight: 350;
+  font-weight: 400;
   font-size: clamp(1.4rem, 2vw, 1.8rem);
   line-height: 1.1;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.012em;
   color: var(--ink);
 }
 .promesa__texto {
@@ -1829,9 +1828,8 @@ body:has([data-slot="sheet-overlay"][data-state="open"]) :is(.demo-banner, .cmp-
 }
 .ckfield label {
   font-size: var(--fs-label);
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-weight: 400;
+  letter-spacing: 0.005em;
   color: var(--ink-3);
 }
 .ckfield input,
@@ -2167,9 +2165,9 @@ body:has([data-slot="sheet-overlay"][data-state="open"]) :is(.demo-banner, .cmp-
 .no-encontrada__nombre {
   grid-area: nombre;
   font-family: var(--font-serif);
-  font-weight: 350;
+  font-weight: 400;
   font-size: clamp(1.7rem, 2.6vw, 2.3rem);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.012em;
   line-height: 1.1;
 }
 .no-encontrada__nota {
@@ -2350,9 +2348,9 @@ body:has([data-slot="sheet-overlay"][data-state="open"]) :is(.demo-banner, .cmp-
 }
 .labres__titulo {
   font-family: var(--font-serif);
-  font-weight: 300;
+  font-weight: 400;
   font-size: 1.5rem;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.012em;
   color: var(--ink);
 }
 .labres__texto {
@@ -2405,7 +2403,7 @@ body:has([data-slot="sheet-overlay"][data-state="open"]) :is(.demo-banner, .cmp-
 .dcompleta__nombre {
   font-family: var(--font-serif);
   font-size: 1.05rem;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.006em;
 }
 .dcompleta__item:hover .dcompleta__nombre {
   text-decoration: underline;
